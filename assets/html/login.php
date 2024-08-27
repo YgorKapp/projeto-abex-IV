@@ -1,3 +1,6 @@
+<?php
+include('../../validalogin.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
