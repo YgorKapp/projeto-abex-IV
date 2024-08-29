@@ -27,7 +27,7 @@ if (isset($_POST['submit'])) {
 		$password = mysqli_real_escape_string($conn, $password);
 
 		$BUSCAUSUARIO = "";
-	    $BUSCADADOSUSUARIO = "SELECT idusuario, nome FROM usuarios WHERE email='$username' AND (senha='".sha1($password)."' AND status=1";
+	    $BUSCADADOSUSUARIO = "SELECT ID, NOME FROM USUARIO WHERE EMAIL='$username' AND (SENHA='".sha1($password)."')";
 	    $query = mysqli_query ( $conn, $BUSCADADOSUSUARIO );
 	    $rows = mysqli_num_rows($query);
 	    if($rows == 1) {
