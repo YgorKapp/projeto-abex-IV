@@ -1,5 +1,8 @@
+<?php
+include('../../validalogin.php');
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,10 +15,10 @@
     <div class="div-login">
         <h1 class="login">Login</h1>
     </div>
-    <div class="input-login">
+    <form class="input-login" method="post">
         <input type="text" name="username" placeholder="Usuário" class="input-login-usuario" required>
         <input type="password" name="password" placeholder="Senha" class="input-login-senha" required>
-        <a href="" class="button-login">ENTRAR</a>
-    </div>
+        <input type="submit" name="submit" class="button-login" value="Entrar">
+    </form>
 </body>
 </html>

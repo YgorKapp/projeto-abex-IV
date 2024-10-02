@@ -127,34 +127,15 @@
     color: var(--branco-secundario);
     margin-bottom: 3em;
 }
-.registre-se{
-    font-family: var(--outra-fonte);
-    font-weight: bold;
-    text-shadow: 5px 5px 7px rgba(0, 0, 0, 0.5);
-    font-size: 2em;
-    color: var(--branco-principal);
-    margin-bottom: 2em;
-}
+
 .input-login{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.input-login-usuario, .search-input, .input-login-senha, .input-cadastrar-email, .input-cadastrar-telefone, .input-cadastrar-confirmar, .input-cadastrar-modelo_onibus, .input-cadastrar-nome,
-.input-cadastrar-usuario, .input-cadastrar-senha, .input-cadastrar-placa, .input-cadastrar-chassi, .input-cadastrar-capacidade, .input-cadastrar-descrição-ponto, 
-.input-cadastrar-longitude, .input-cadastrar-latitude, .input-cadastrar-ponto {
-   font-family: var(--outra-fonte);
-   height: 2.8em;
-   border-radius: 15px;
-   padding-left: 1em;
-   width: 80%;
-   border: none;
-   background-color: var(--branco-principal);
-}
-.input-login-senha, .search-input, .input-login-usuario, .input-cadastrar-email, .input-cadastrar-telefone,.input-cadastrar-nome, .input-cadastrar-usuario, .input-cadastrar-senha, 
-.input-cadastrar-placa, .input-cadastrar-chassi, .input-cadastrar-capacidade, .input-cadastrar-modelo_onibus, .input-cadastrar-latitude, .input-cadastrar-longitude, .input-cadastrar-descrição-ponto, 
-.input-cadastrar-ponto {
+
+.input-login-senha, .input-login-usuario, .input-cadastrar-email, .input-cadastrar-telefone,.input-cadastrar-nome, .input-cadastrar-usuario, .input-cadastrar-senha{
     margin-bottom: 1em;
 }
 .input-login-senha, .input-cadastrar-confirmar{
@@ -221,6 +202,7 @@
     font-size: 0.888em;
     margin-top: 4em;
 }
+
 .saudação{
     margin-top: 3em;
     font-family: var(--fonte-principal);
@@ -236,207 +218,103 @@
     color: var(--branco-secundario);
 }
 
-/*Home.css*/
 
-.header{
-    margin-left: 1em;
-    color: var(--branco-principal);
-}
-.hamburger, .localizacao, .btn_localizacao{
-    margin: -.33em 1em 1em 0em;
-}
-#hamburger{
-    width: 26px;
-    height: 23px;
-}
-.localizacao{
-    max-width: 11em;
-    font-family: var(--fonte-principal);
-}
-.btn_localizacao, .btn_localizar{
-    background-color: var(--preto-botoes);
-    color: var(--branco-secundario);
-    padding: .25em .7em;
+
+.input-cadastrar-nome{
+    font-family: var(--outra-fonte);
+    height: 2.8em;
     border-radius: 15px;
-    font-family: var(--fonte-principal);
-    font-size: .6em;
-    text-align: center;
-    outline: none;
+    padding-left: 1em;
+    width: 80%;
     border: none;
-}
-.main{
-    background-color: var(--branco-secundario);
-    height: 100vh;
-    font-family: var(--fonte-principal);
-}
-a {
-    text-decoration: none;
-    color: inherit;
-    font-size: 18px;
-    color: #ABABAB;
-    background: none;
-    border: none;
-}
-.cards_principal{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    padding: 1.3em 0;
-    text-align: center;
-}
-.cards_principal>div>img{
-    height: 70px;
-    width: 70px;
-    padding: .3em;
     background-color: var(--branco-principal);
-    border-radius: 10px;
+    margin-top: 50px;
 }
-.cards_principal>div>p{
-    color: var(--cinza-subtitulo);
-    font-size: .6em;
+
+.paradas {
+    font-family: var(--outra-fonte, Arial);
+    font-weight: bold;
+    /* text-shadow: 5px 5px 7px rgba(0, 0, 0, 0.5); */
+    font-size: 20px;
+    color: var(--branco-principal, #fff);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0;
 }
-.button-home{
-    background-color: var(--verde-principal);
-    color: var(--branco-principal);
-    padding: 16px;
+
+.imagem-parada {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0; /* Remova o padding à esquerda */
+    height: 75px;
+    width: 75px;
+}
+
+.selecionar_parada_button {
+    background-color: #000000;
+    color: var(--verde-principal);
+    text-decoration: none;
+    padding: 6px;
     border-radius: 15px;
     margin: 8px 0; 
     display: block;
-    width: 80%; 
+    width: 40%; 
     text-align: center;
-    box-shadow: 3px 3px 6px 0 rgb(88, 83, 83);
-    font-size: .7em;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: bold;
-    text-decoration: none;
-    text-transform: uppercase;
     outline: none;
-    margin: 0 auto 1em auto;
-}
-.mapa{
-    text-align: center;
-}
-.items{
-    display: flex;
-    flex-direction: row;
-    width: 90%;
-    margin: 1em auto;
-}
-.item-image{
-    background-color: var(--branco-principal);
-    height: 50px;
-    padding: 4px 19px;
-    border-radius: 10px;
-    margin: 0 .2em 0 0;
-}
-.item-info {
-    background-color: var(--branco-principal);
-    max-height: 58px;
-    border-radius: 10px;
-    padding: .1em;
-    display: flex;
-    flex-direction: row;
-    width: 90%;
-    justify-content: space-between;
-    align-items: center;
-    justify-content: center;
-}
-.texto-localizar, .texto-universidade{
-    font-size: 12px;
-}
-.texto-localizar{
-    font-weight: bold;
-}
-.btn_localizar{
-    margin-top: 3em;
-    margin-left: 3.5em;
-}
-.textosss{
-    width: 50%;
+    margin-top: 350px;
+    font-size: small;
+    color: #a1a1a1;
 }
 
-/*Menu lateral*/
+.informacoes {
+    margin-left: 15px;
+}
 
-.sidebar {
-    background-color: #1FAD6F;
-    background-image: url('../img/background_filter.png');
-    height: 100%;
-    width: 80%;
-    position: fixed;
-    top: 0;
-    left: -50%;  
-    padding-top: 60px;
-    transition: 0.3s;
-    z-index: 1000;
-    display: none;
-}
-.lista{
-    font-size: 0.87em;
-}
-.sidebar ul {
-    list-style-type: none;
-    padding: 0;
-}
-.sidebar ul li {
-    padding: 8px 16px;
-    text-align: left;
-}
-.sidebar ul li a {
-    color: white;
-    text-decoration: none;
+.imagem_homem-parada {
     display: block;
-}
-.sidebar ul li a:hover {
-    background-color: #575757;
-}
-.sidebar.open {
-    display: block;
-    left: 0;
-}
-.hamburger {
-    font-size: 30px;
-    cursor: pointer;
-}
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 30px;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0; /* Remova o padding à esquerda */
+    height: 45px;
+    width: 30px;
+    background-color: #f0f0f0; /* Fundo cinza claro */
+    padding: 10px; /* Diminui o espaçamento interno */
+    border-radius: 8px; /* Arredonda as pontas da caixa */
 }
 
-/* Trajetos.html */
-
-.img-trajetos{
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-.img-trajetos-p{
-    color:#FFFFFF;
-    margin: 0px;
-    font-family: var(--fonte-principal);
-    font-size: 0.8em;
-    font-weight: bold;
-}
-.search-form{
+.class_universidade {
+    font-family: var(--outra-fonte, Arial);
+    color: black;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 1em;
-}
-.item-image{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.img-trajeto{
-    width: 35px;
-    height: 35px;
-}
-.mapa>iframe{
+    width: 100%;
+    max-width: 90%; /* Limita a largura máxima à largura da tela */
+    box-sizing: border-box; /* Inclui o padding na largura total */
+    background-color: white; 
+    font-size: 14px;
     border-radius: 15px;
+    padding: 5px;
+    overflow-wrap: break-word; /* Quebra as palavras longas */
+    margin: auto;
+    margin-bottom: 15px;
+    margin-top: 15px;
 }
+
+.imagem_homem-plaquinha {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0; /* Remova o padding à esquerda */
+    height: 40px; /* Diminui a altura da caixa */
+    width: 45px; /* Diminui a largura da caixa */
+    background-color: #f0f0f0; /* Fundo cinza claro */
+    padding: 7px; /* Diminui o espaçamento interno */
+    border-radius: 8px; /* Arredonda as pontas da caixa */
+}
+
+

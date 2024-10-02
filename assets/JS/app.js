@@ -6,3 +6,4 @@ setTimeout(function() {
     container1.classList.add('show');
     container2.classList.remove('animação');
 }, 1500);
+
