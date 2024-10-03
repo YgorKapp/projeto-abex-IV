@@ -1,0 +1,13 @@
+{% extends 'template.html'%}
+{% block conteudo%}
+    <a href="#" class="goback" id="backButton"><img src="{{url_for('static', filename='img/goback.png')}}" alt="seta para voltar a home" title="Seta para voltar a home"></a>
+    <div class="div-login">
+        <h1 class="registre-se">Trajetos</h1>
+    </div>
+    
+    <form action="processar_pontos.php" method="POST" class="input-login">
+        <input type="text" name="input" placeholder="Informe um ponto" class="input-cadastrar-ponto">
+        <button id="add-input" type="button" class="button">Adicionar mais um ponto</button>
+        <button id="finalizar" type="submit" class="button">Finalizar</button>
+    </form>    
+{% endblock%}

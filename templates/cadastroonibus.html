@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="website icon" type="png" href="../img/logo.png">
-    <title>Cadastro ônibus</title>
-</head>
-<body class="body-background">
-    <a href="home.html" class="goback"><img src="../img/goback.png" alt="seta para voltar a home" title="Seta para voltar a home"></a>
+{% extends 'template.html' %}
+{% block conteudo%}
+    <a href="#" class="goback" id="backButton"><img src="{{url_for('static', filename='img/goback.png')}}" alt="seta para voltar a home" title="Seta para voltar a home"></a>
     <div class="div-login">
         <h1 class="registre-se">Ônibus</h1>
     </div>
@@ -17,7 +9,6 @@
         <input type="text" name="placa" placeholder="Placa" class="input-cadastrar-placa" required>
         <input type="text" name="chassi" placeholder="Chassi" class="input-cadastrar-chassi" required>
         <input type="number" name="capacidade" placeholder="Capacidade" class="input-cadastrar-capacidade" required>
-        <button type="submit" class="button-cadastrar">CADASTRAR ÔNIBUS</button>
+        <button type="submit" class="button-cadastrar">CADASTRAR</button>
     </form>    
-</body>
-</html>
+{% endblock%}

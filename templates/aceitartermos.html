@@ -1,0 +1,9 @@
+{% extends 'template.html' %}
+{% block conteudo%}
+    <a href="#" class="goback" id="backButton"><img src="{{url_for('static', filename='img/goback.png')}}" alt="seta para voltar a home" title="Seta para voltar a home"></a>
+    <div class="input-login">
+        <img src="{{url_for('static', filename='img/logo.png')}}" alt="logo da One bus" title="logo da One bus" class="logo-termos">
+        <p class="termos">Ao clicar no botão abaixo, você concorda com os Termos de Uso e reconhece que leu a Política de Privacidade</p>
+        <a href="{{url_for('acessarconta')}}" class="button-termos">ACEITAR</a>
+    </div>
+{% endblock%}

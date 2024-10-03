@@ -1,14 +1,3 @@
-document.querySelector('.btn_localizacao').addEventListener('click', function() {
-
-    document.querySelector('.localizacao').style.display = 'none';
-    document.querySelector('.btn_localizacao').style.display = 'none';
-    
-    const items = document.querySelectorAll('.items');
-    items.forEach(item => {
-        item.style.display = 'flex';
-    });
-});
-
 document.getElementById('hamburger').addEventListener('click', function() {
     const sidebar = document.getElementById('sidebar');
 
@@ -29,3 +18,13 @@ document.getElementById('closeBtn').addEventListener('click', function() {
     sidebar.style.left = '-50%';
 });
 
+document.querySelector('.btn_localizacao').addEventListener('click', function() {
+
+    document.querySelector('.localizacao').style.display = 'none';
+    document.querySelector('.btn_localizacao').style.display = 'none';
+    
+    const items = document.querySelectorAll('.items');
+    items.forEach(item => {
+        item.style.display = 'flex';
+    });
+});

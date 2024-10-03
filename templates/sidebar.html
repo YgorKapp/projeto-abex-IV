@@ -1,0 +1,12 @@
+<nav class="sidebar" id="sidebar">
+    <button class="close-btn" id="closeBtn">×</button>
+        <p class="sidebar-titulo">Cadastros:</p>
+        <ul>
+            <li class="lista"><a href="{{ url_for('cadastro', tipo='criarconta') }}">Usuário</a></li>
+            <li class="lista"><a href="{{ url_for('cadastro', tipo='trajetos') }}">Trajetos</a></li>
+            <li class="lista"><a href="{{ url_for('cadastro', tipo='pontos') }}">Pontos</a></li>
+            <li class="lista"><a href="{{ url_for('cadastro', tipo='onibus') }}">Ônibus</a></li>
+            <li class="lista"><a href="{{ url_for('cadastro', tipo='motorista') }}">Motorista</a></li>
+        </ul>
+
+</nav>

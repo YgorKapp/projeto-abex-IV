@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="website icon" type="png" href="../img/logo.png">
-    <title>Cadastre-se</title>
-</head>
-<body class="body-background">
-    <a href="../../index.html" class="goback"><img src="../img/goback.png" alt="seta para voltar a home" title="Seta para voltar a home"></a>
+{% extends 'template.html' %}
+{% block conteudo%}
+    <a href="#" class="goback" id="backButton"><img src="{{url_for('static', filename='img/goback.png')}}" alt="seta para voltar a home" title="Seta para voltar a home"></a>
     <div class="div-login">
         <h1 class="registre-se">Registre-se</h1>
     </div>
@@ -19,7 +11,6 @@
         <input type="tel" name="tel" placeholder="Telefone" class="input-cadastrar-telefone" required>
         <input type="password" name="password" placeholder="Senha" class="input-cadastrar-senha" required>
         <input type="password" name="password" placeholder="Confirmar senha" class="input-cadastrar-confirmar" required>
-        <a href="aceitartermos.html" class="button-cadastrar">CRIAR CONTA</a>
+        <a href="{{url_for('aceite')}}" class="button-cadastrar">CRIAR CONTA</a>
     </div>
-</body>
-</html>
+{% endblock%}

@@ -1,0 +1,10 @@
+{% extends 'template.html' %}
+{% block conteudo%}
+    <a href="#" class="goback" id="backButton"><img src="{{url_for('static', filename='img/goback.png')}}" alt="seta para voltar a home" title="Seta para voltar a home"></a>
+    <div class="input-login">
+        <img src="{{url_for('static', filename='img/logo.png')}}" alt="logo da One bus" title="logo da One bus" class="logo-termos">
+        <h2 class="nome-acessar">Olá, Patrick lemes</h2>
+        <p class="saudacao">Sejá bem vindo!</p>
+        <a href="{{url_for('home')}}" class="button-acessar">ACEITAR</a>
+    </div>
+{% endblock%}

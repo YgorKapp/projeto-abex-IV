@@ -1,16 +1,5 @@
-</html>
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="website icon" type="png" href="../img/logo.png">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <script src="../JS/home.js" defer></script>
-    <title>One Bus</title>
-</head>
-<body class="body-background">
+{% extends 'template.html' %}
+{% block conteudo%}
     <header class="header">
         <div class="hamburger">
             <i class="bi bi-list" id="hamburger"></i>
@@ -109,16 +98,7 @@
             </div>
         </div>
     </main>
-    <nav class="sidebar" id="sidebar">
-        <button class="close-btn" id="closeBtn">×</button>
-            <p class="">Cadastros:</p>
-            <ul>
-                <li class="lista"><a href="login.php">Usuário</a></li>
-                <li class="lista"><a href="cadastrotrajetos.html">Trajetos</a></li>
-                <li class="lista"><a href="cadastrarpontos.html">Pontos</a></li>
-                <li class="lista"><a href="cadastroonibus.html">Ônibus</a></li>
-                <li class="lista"><a href="cadastrarmotorista.html">Motorista</a></li>
-            </ul>
-    </nav>
-</body>
-</html>
+    {% block sidebar%}
+        {% include 'sidebar.html'%}
+    {% endblock%}
+{% endblock%}

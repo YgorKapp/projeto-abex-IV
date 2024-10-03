@@ -11,7 +11,7 @@ include('../../validalogin.php');
     <title>Login</title>
 </head>
 <body class="body-background">
-    <a href="../../index.html" class="goback"><img src="../img/goback.png" alt="seta para voltar a home" title="Seta para voltar a home"></a>
+    <a href="#" class="goback" id="backButton"><img src="{{url_for('static', filename='img/goback.png')}}" alt="seta para voltar a home" title="Seta para voltar a home"></a>
     <div class="div-login">
         <h1 class="login">Login</h1>
     </div>

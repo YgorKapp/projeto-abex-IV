@@ -1,0 +1,15 @@
+{% extends 'template.html' %}
+{% block conteudo%}
+    <div class="corpo">
+        <div class="logo animação" id="animação">
+            <div class="cor-logo">
+                <img src="{{url_for('static', filename='img/logo.png')}}" alt="logo da One bus" title="logo na One bus">
+            </div>
+            <h1 class="titulo">ONE BUS</h1>
+        </div>
+        <div class="botão hidden" id="button">
+            <a href="{{url_for('cadastro', tipo='criarconta')}}" class="button">INICIAR JORNADA</a>
+            <a href="assets/html/login.php" class="button">JÁ TENHO UMA CONTA</a>
+        </div>
+    </div>
+{% endblock%}
