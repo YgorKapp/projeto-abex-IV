@@ -1,14 +1,17 @@
 import mysql.connector
+from dotenv import dotenv_values
 from mysql.connector import Error
+
+config = dotenv_values('/home/ixcsoft/Documentos/onebus/projeto-abex-IV/.env') # Validar endereço
 
 class Conexao:
 
     def criar_conexao(self):
         try:
-            host = "onebus.cx8kmic8cryz.us-east-2.rds.amazonaws.com"
-            username = "admin"
-            password = "onebus123"
-            db_name = "onebus"
+            host = config['ENDPOINT_BANCO']
+            username = config['USERNAME_BANCO']
+            password = config['PASSWORD_BANCO']
+            db_name = config['DB_NAME_BANCO']
 
             con = mysql.connector.connect(
                 host=host,
