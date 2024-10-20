@@ -1,5 +1,6 @@
-{% extends 'template.html'%}
-{% block conteudo%}
+<!-- templates/paradas.html -->
+{% extends 'template.html' %}
+{% block conteudo %}
     
     <header class="header">
         <div class="hamburger">
@@ -7,7 +8,7 @@
         </div>
     </header>
     
-    <img class="imagem-parada" src="{{url_for('static', filename='img/parada.png')}}" alt="logo da One bus" title="logo da One bus" class="logo-termos" height="50" width="50">
+    <img class="imagem-parada" src="{{ url_for('static', filename='img/parada.png') }}" alt="logo da One bus" title="logo na One bus" class="logo-termos" height="50" width="50">
     
     <div class="div-login">
         <h1 class="paradas">PARADAS</h1>
@@ -16,11 +17,25 @@
     <div class="parada-branco">
         <div class="input-login" style="position: relative;">
             <input type="text" name="text" placeholder="Pesquisar" class="input-cadastrar-nome" required>
+            
+            <!-- Novo div com iframe do Google Maps posicionado acima do botão -->
+            <div class="mapa">
+                <iframe
+                        width="85%"
+                        height="450"
+                        style="border:0"
+                        loading="lazy"
+                        allowfullscreen
+                        referrerpolicy="no-referrer-when-downgrade"
+                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA59pXtdF-nLEO7RsVkupiEo_1ekWDVNmA&q=Space+Needle,Seattle+WA">
+                </iframe>
+            </div>
+            
             <a href="" class="selecionar_parada_button">SELECIONAR UMA PARADA</a>
-            <img src="{{url_for('static', filename='img/Basemap image.png')}}" alt="mapa" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;">
         </div>
     </div>
-    {% block sidebar%}
-        {% include 'sidebar.html'%}
-    {% endblock%}
-{% endblock%}
+    
+    {% block sidebar %}
+        {% include 'sidebar.html' %}
+    {% endblock %}
+{% endblock %}
