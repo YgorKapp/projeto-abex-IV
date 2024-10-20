@@ -1,10 +1,17 @@
+<!-- templates/acessarconta.html -->
 {% extends 'template.html' %}
-{% block conteudo%}
-    <a href="#" class="goback" id="backButton"><img src="{{url_for('static', filename='img/goback.png')}}" alt="seta para voltar a home" title="Seta para voltar a home"></a>
+{% block conteudo %}
+    <a href="{{ url_for('index') }}" class="goback" id="backButton">
+        <img src="{{ url_for('static', filename='img/goback.png') }}" alt="seta para voltar a home" title="Seta para voltar a home">
+    </a>
     <div class="input-login">
-        <img src="{{url_for('static', filename='img/logo.png')}}" alt="logo da One bus" title="logo da One bus" class="logo-termos">
-        <h2 class="nome-acessar">Olá, Patrick lemes</h2>
-        <p class="saudacao">Sejá bem vindo!</p>
-        <a href="{{url_for('home')}}" class="button-acessar">ACESSAR</a>
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo da One Bus" title="logo da One Bus" class="logo-termos">
+        <h2 class="nome-acessar">Olá, Seja Bem-Vindo!</h2>
+        <p class="saudacao">Faça login para acessar sua conta.</p>
+        <form action="{{ url_for('autenticar') }}" method="POST" class="input-login">
+            <input type="text" name="username" placeholder="Username ou Email" class="input-cadastrar-usuario" required>
+            <input type="password" name="senha" placeholder="Senha" class="input-cadastrar-senha" required>
+            <button type="submit" class="button-acessar">ACESSAR</button>
+        </form>
     </div>
-{% endblock%}
+{% endblock %}
