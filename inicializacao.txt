@@ -1,0 +1,10 @@
+1 - Autorizar execução de scripts, abrir powershell como administrador e inserir 'Set-ExecutionPolicy RemoteSigned' e selecionar a opção 'A'. Posteriormente a execução de scripts pode ser bloqueada novamente com 'Set-ExecutionPolicy Restricted';
+
+#Ativar venv com '.\venv\Scripts\Activate'
+
+#Instalar
+pip install Flask
+pip install Flask-MySQLdb
+pip install mysql-connector-python
+pip install Werkzeug
+pip install dotenv

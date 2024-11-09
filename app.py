@@ -4,6 +4,7 @@ from classes.Usuario import Usuario
 from db import init_db
 from werkzeug.security import generate_password_hash, check_password_hash
 import MySQLdb.cursors
+from conexao import Conexao
 from functools import wraps
 import os
 
@@ -65,6 +66,9 @@ def trajetos():
     return render_template('trajetos.html', title='Trajetos', back_style='body-background')
 
 # Autenticação de usuário (login)
+from flask import flash, redirect, url_for, session, request
+from werkzeug.security import check_password_hash
+
 @app.route('/autenticar', methods=['POST'])
 def autenticar():
     # Obter dados do formulário de login
@@ -77,26 +81,39 @@ def autenticar():
         return redirect(url_for('acessarconta'))
 
     try:
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor = mysql.connection.cursor()
         query = "SELECT * FROM T_USUARIOS WHERE USERNAME = %s OR EMAIL = %s"
         cursor.execute(query, (username, username))
         user = cursor.fetchone()
         cursor.close()
+        
+        print("user")  # Verifique o retorno do banco de dados
+        print(user)  # Verifique o retorno do banco de dados
 
-        if user and check_password_hash(user['SENHA'], senha):
+        if not user:
+            flash('Usuário não encontrado.', 'danger')
+            return redirect(url_for('acessarconta'))
+
+        # Validar senha
+        if check_password_hash(user['SENHA'], senha):
             # Login bem-sucedido
+            print('login ok')
             session['loggedin'] = True
-            session['id'] = user['ID_USUARIO']
+            print(session['loggedin'])
+            session['id'] = user['ID']
             session['username'] = user['USERNAME']
             flash('Login realizado com sucesso!', 'success')
             return redirect(url_for('home'))
         else:
-            # Login falhou
-            flash('Usuário não encontrado ou senha incorreta. Por favor, tente novamente ou <a href="' + url_for('cadastro', tipo='criarconta') + '">crie uma conta</a>.', 'danger')
+            # Senha incorreta
+            flash('Senha incorreta. Por favor, tente novamente.', 'danger')
+            print('login não ok')
             return redirect(url_for('acessarconta'))
+    
     except Exception as e:
         flash(f'Ocorreu um erro durante a autenticação: {str(e)}', 'danger')
         return redirect(url_for('acessarconta'))
+
 
 # Registro de usuário
 @app.route('/registrar/<string:tipo>', methods=['POST', 'GET'])
