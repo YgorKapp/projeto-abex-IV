@@ -31,8 +31,17 @@ def index():
 # Rotas de cadastro
 @app.route('/cadastro/<string:tipo>')
 def cadastro(tipo):
+    
     if tipo == 'criarconta':
         return render_template('criarconta.html', title='Cadastre-se', back_style='body-background')
+    if tipo == 'trajetos':
+        return render_template('cadastrotrajetos.html', title='Cadastro de trajetos', back_style='body-background')
+    if tipo == 'pontos':
+        return render_template('cadastrarpontos.html', title='Cadastro de pontos', back_style='body-background')
+    if tipo == 'onibus':
+        return render_template('cadastroonibus.html', title='Cadastro de onibus', back_style='body-background')
+    if tipo == 'motorista':
+        return render_template('cadastrarmotorista.html', title='Cadastro de motorista', back_style='body-background')
     # Adicione outras rotas de cadastro conforme necessário
     else:
         return "Tipo de cadastro inválido", 404
@@ -114,11 +123,11 @@ def autenticar():
         flash(f'Ocorreu um erro durante a autenticação: {str(e)}', 'danger')
         return redirect(url_for('acessarconta'))
 
-
 # Registro de usuário
 @app.route('/registrar/<string:tipo>', methods=['POST', 'GET'])
 def registrar(tipo):
     if tipo == 'usuario' and request.method == 'POST':
+        
         # Obter dados do formulário
         nome = request.form.get('nome')
         username = request.form.get('username')
@@ -162,8 +171,167 @@ def registrar(tipo):
         except Exception as e:
             flash(f'Ocorreu um erro: {str(e)}', 'danger')
             return redirect(url_for('cadastro', tipo='criarconta'))
-    elif tipo == 'usuario' and request.method == 'GET':
+    
+    if tipo == 'usuario' and request.method == 'GET':
         return redirect(url_for('cadastro', tipo='criarconta'))
+
+    elif tipo == 'motorista' and request.method == 'POST':
+        
+        # Obter dados do formulário
+        nome_motorista = request.form.get('nome_motorista')
+        cpf_motorista = request.form.get('cpf_motorista')
+        chassi_onibus = request.form.get('chassi_onibus')
+
+        # Validação básica
+        if not nome_motorista or not cpf_motorista or not chassi_onibus:
+            flash('Por favor, preencha todos os campos obrigatórios.', 'danger')
+            return redirect(url_for('cadastro', tipo='motorista'))
+
+        try:
+            cursor = mysql.connection.cursor()
+            query = """
+                INSERT INTO T_MOTORISTAS (NOME_MOTORISTA, CPF_MOTORISTA, CHASSI_ONIBUS)
+                VALUES (%s, %s, %s)
+            """
+            cursor.execute(query, (nome_motorista, cpf_motorista, chassi_onibus))
+            mysql.connection.commit()
+            cursor.close()
+
+            flash('Motorista registrado com sucesso!', 'success')
+            return redirect(url_for('home'))  # Redireciona para a página inicial ou outra página relevante
+        except MySQLdb.IntegrityError as e:
+            # Verifica se há erro de duplicidade, como CPF
+            if 'Duplicate entry' in str(e):
+                flash('Este CPF já está registrado.', 'danger')
+            else:
+                flash('Ocorreu um erro durante o registro. Tente novamente.', 'danger')
+            return redirect(url_for('cadastro', tipo='motorista'))
+        except Exception as e:
+            flash(f'Ocorreu um erro: {str(e)}', 'danger')
+            return redirect(url_for('cadastro', tipo='motorista'))
+    
+    if tipo == 'motorista' and request.method == 'GET':
+        return redirect(url_for('cadastro', tipo='motorista'))
+
+    elif tipo == 'onibus' and request.method == 'POST':
+        
+        # Obter dados do formulário
+        modelo_onibus = request.form.get('modelo_onibus')
+        placa_onibus = request.form.get('placa')
+        chassi_onibus = request.form.get('chassi')
+        capacidade_onibus = request.form.get('capacidade')
+
+        # Validação básica
+        if not modelo_onibus or not placa_onibus or not chassi_onibus or not capacidade_onibus:
+            flash('Por favor, preencha todos os campos obrigatórios.', 'danger')
+            return redirect(url_for('cadastro', tipo='motorista'))
+
+        try:
+            cursor = mysql.connection.cursor()
+            query = """
+                INSERT INTO T_ONIBUS (ONI_MODELO, ONI_PLACA, ONI_CHASSI, ONI_CAPACIDADE, ONI_ID_APLICATIVO)
+                VALUES (%s, %s, %s, %s, 1)
+            """
+            cursor.execute(query, (modelo_onibus, placa_onibus, chassi_onibus, capacidade_onibus))
+            mysql.connection.commit()
+            cursor.close()
+
+            flash('Ônibus registrado com sucesso!', 'success')
+            return redirect(url_for('home'))  # Redireciona para a página inicial ou outra página relevante
+        except MySQLdb.IntegrityError as e:
+            # Verifica se há erro de duplicidade, como CPF
+            if 'Duplicate entry' in str(e):
+                flash('Este ônibus já está registrado.', 'danger')
+            else:
+                flash('Ocorreu um erro durante o registro. Tente novamente.', 'danger')
+            return redirect(url_for('cadastro', tipo='motorista'))
+        except Exception as e:
+            flash(f'Ocorreu um erro: {str(e)}', 'danger')
+            return redirect(url_for('cadastro', tipo='motorista'))
+    
+    if tipo == 'onibus' and request.method == 'GET':
+        return redirect(url_for('cadastro', tipo='onibus'))
+
+    elif tipo == 'ponto' and request.method == 'POST':
+        
+        # Obter dados do formulário
+        descricao_ponto = request.form.get('descricao_ponto')
+        latitude = float(request.form.get('latitude'))
+        longitude = float(request.form.get('longitude'))
+
+        print(latitude)
+        print(longitude)
+        # Validação básica
+        if not descricao_ponto or not latitude or not longitude:
+            flash('Por favor, preencha todos os campos obrigatórios.', 'danger')
+            return redirect(url_for('cadastro', tipo='motorista'))
+
+        try:
+            cursor = mysql.connection.cursor()
+            query = """
+                INSERT INTO T_PONTOS (PON_DESCRICAO, PON_LATITUDE, PON_LONGITUDE)
+                VALUES (%s, %s, %s)
+            """
+            cursor.execute(query, (descricao_ponto, latitude, longitude))
+            mysql.connection.commit()
+            cursor.close()
+
+            flash('Ponto registrado com sucesso!', 'success')
+            return redirect(url_for('home'))  # Redireciona para a página inicial ou outra página relevante
+        except MySQLdb.IntegrityError as e:
+            # Verifica se há erro de duplicidade, como CPF
+            if 'Duplicate entry' in str(e):
+                flash('Este ponto já está registrado.', 'danger')
+            else:
+                flash('Ocorreu um erro durante o registro. Tente novamente.', 'danger')
+            return redirect(url_for('cadastro', tipo='motorista'))
+        except Exception as e:
+            flash(f'Ocorreu um erro: {str(e)}', 'danger')
+            return redirect(url_for('cadastro', tipo='motorista'))
+    
+    elif tipo == 'ponto' and request.method == 'GET':
+            return redirect(url_for('cadastro', tipo='pontos'))
+
+    elif tipo == 'trajeto' and request.method == 'POST':
+        
+        # Obter dados do formulário
+        descricao_ponto = request.form.get('descricao_ponto')
+        latitude = float(request.form.get('latitude'))
+        longitude = float(request.form.get('longitude'))
+
+
+        # Validação básica
+        if not descricao_ponto or not latitude or not longitude:
+            flash('Por favor, preencha todos os campos obrigatórios.', 'danger')
+            return redirect(url_for('cadastro', tipo='motorista'))
+
+        try:
+            cursor = mysql.connection.cursor()
+            query = """
+                INSERT INTO T_PONTOS (PON_DESCRICAO, PON_LATITUDE, PON_LONGITUDE)
+                VALUES (%s, %s, %s)
+            """
+            cursor.execute(query, (descricao_ponto, latitude, longitude))
+            mysql.connection.commit()
+            cursor.close()
+
+            flash('Ponto registrado com sucesso!', 'success')
+            return redirect(url_for('home'))  # Redireciona para a página inicial ou outra página relevante
+        except MySQLdb.IntegrityError as e:
+            # Verifica se há erro de duplicidade, como CPF
+            if 'Duplicate entry' in str(e):
+                flash('Este ponto já está registrado.', 'danger')
+            else:
+                flash('Ocorreu um erro durante o registro. Tente novamente.', 'danger')
+            return redirect(url_for('cadastro', tipo='motorista'))
+        except Exception as e:
+            flash(f'Ocorreu um erro: {str(e)}', 'danger')
+            return redirect(url_for('cadastro', tipo='motorista'))
+    
+    if tipo == 'trajeto' and request.method == 'GET':
+        return redirect(url_for('cadastro', tipo='trajeto'))
+        
+
     else:
         flash('Tipo de registro inválido.', 'danger')
         return redirect(url_for('home'))

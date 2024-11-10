@@ -4,7 +4,7 @@
     <div class="div-login">
         <h1 class="registre-se">Ônibus</h1>
     </div>
-    <form action="" method="POST" class="input-login">
+    <form action="{{url_for('registrar', tipo='onibus')}}" method="POST" class="input-login">
         <input type="text" name="modelo_onibus" placeholder="Modelo do ônibus" class="input-cadastrar-modelo_onibus" required>
         <input type="text" name="placa" placeholder="Placa" class="input-cadastrar-placa" required>
         <input type="text" name="chassi" placeholder="Chassi" class="input-cadastrar-chassi" required>

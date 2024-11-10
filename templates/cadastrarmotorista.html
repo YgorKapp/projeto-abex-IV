@@ -2,9 +2,9 @@
 {% block conteudo%}
     <a href="#" class="goback" id="backButton"><img src="{{url_for('static', filename='img/goback.png')}}" alt="seta para voltar a home" title="Seta para voltar a home"></a>
     <div class="div-login">
-        <h1 class="registre-se">Ônibus</h1>
+        <h1 class="registre-se">Motorista</h1>
     </div>
-    <form action="" method="POST" class="input-login">
+    <form action="{{url_for('registrar', tipo='motorista')}}" method="POST" class="input-login">
         <input type="text" name="nome_motorista" placeholder="Nome motorista" class="input-cadastrar-placa" required>
         <input type="number" name="cpf_motorista" placeholder="CPF" class="input-cadastrar-chassi" required>
         <input type="text" name="chassi_onibus" placeholder="Chassi do ônibus" class="input-cadastrar-modelo_onibus" required>
