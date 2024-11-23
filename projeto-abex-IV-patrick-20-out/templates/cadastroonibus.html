@@ -1,0 +1,14 @@
+{% extends 'template.html' %}
+{% block conteudo%}
+    <a href="#" class="goback" id="backButton"><img src="{{url_for('static', filename='img/goback.png')}}" alt="seta para voltar a home" title="Seta para voltar a home"></a>
+    <div class="div-login">
+        <h1 class="registre-se">Ônibus</h1>
+    </div>
+    <form action="{{url_for('registrar', tipo='onibus')}}" method="POST" class="input-login">
+        <input type="text" name="modelo_onibus" placeholder="Modelo do ônibus" class="input-cadastrar-modelo_onibus" required>
+        <input type="text" name="placa" placeholder="Placa" class="input-cadastrar-placa" required>
+        <input type="text" name="chassi" placeholder="Chassi" class="input-cadastrar-chassi" required>
+        <input type="number" name="capacidade" placeholder="Capacidade" class="input-cadastrar-capacidade" required>
+        <button type="submit" class="button-cadastrar">CADASTRAR</button>
+    </form>    
+{% endblock%}

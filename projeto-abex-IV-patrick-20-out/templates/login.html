@@ -1,0 +1,24 @@
+<!-- templates/login.html -->
+{% extends 'template.html' %}
+{% block conteudo %}
+    <a href="{{ url_for('index') }}" class="goback" id="backButton">
+        <img src="{{ url_for('static', filename='img/goback.png') }}" alt="seta para voltar a home" title="Seta para voltar a home">
+    </a>
+    <div class="input-login">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo da One Bus" title="logo da One Bus" class="logo-termos">
+        <h2 class="nome-acessar">Olá, Seja Bem-Vindo!</h2>
+        <p class="saudacao">Faça login para acessar sua conta.</p>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        <form action="{{ url_for('autenticar') }}" method="POST" class="input-login">
+            <input type="text" name="username" placeholder="Username ou Email" class="input-cadastrar-usuario" required>
+            <input type="password" name="senha" placeholder="Senha" class="input-cadastrar-senha" required>
+            <button type="submit" class="button-acessar">ACESSAR</button>
+        </form>
+    </div>
+{% endblock %}

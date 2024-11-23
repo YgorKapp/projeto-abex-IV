@@ -1,0 +1,38 @@
+<!-- templates/criarconta.html -->
+{% extends 'template.html' %}
+{% block conteudo %}
+    <a href="{{ url_for('index') }}" class="goback" id="backButton">
+        <img src="{{ url_for('static', filename='img/goback.png') }}" alt="seta para voltar a home" title="Seta para voltar a home">
+    </a>
+    <div class="div-login">
+        <h1 class="registre-se">Registre-se</h1>
+    </div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message|safe }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <form action="{{ url_for('registrar', tipo='usuario') }}" method="POST" class="input-login" onsubmit="return validarSenhas()">
+        <input type="text" name="nome" placeholder="Nome completo" class="input-cadastrar-nome" required>
+        <input type="text" name="username" placeholder="Usuário" class="input-cadastrar-usuario" required>
+        <input type="email" name="email" placeholder="Email" class="input-cadastrar-email" required>
+        <input type="tel" name="telefone" placeholder="Telefone" class="input-cadastrar-telefone" required>
+        <input type="password" name="senha" id="senha" placeholder="Senha" class="input-cadastrar-senha" required>
+        <input type="password" name="conferesenha" id="conferesenha" placeholder="Confirmar senha" class="input-cadastrar-confirmar" required>
+        <button type="submit" class="button-cadastrar">CRIAR CONTA</button>
+    </form>
+
+    <script>
+        function validarSenhas() {
+            const senha = document.getElementById('senha').value;
+            const conferesenha = document.getElementById('conferesenha').value;
+            if (senha !== conferesenha) {
+                alert('As senhas não correspondem!');
+                return false;
+            }
+            return true;
+        }
+    </script>
+{% endblock %}

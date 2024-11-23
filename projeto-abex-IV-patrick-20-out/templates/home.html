@@ -1,0 +1,45 @@
+{% extends 'template.html' %}
+{% block conteudo%}
+    <header class="header">
+        <div class="hamburger">
+            <i class="bi bi-list" id="hamburger"></i>
+        </div>
+        <p class="localizacao">
+            Para encontrar os melhores trajetos, <br>
+            ative a sua localização
+        </p>
+        <div>
+            <button class="btn_localizacao">Ativar localização</button>
+        </div>
+    </header>
+    <main class="main">
+        <div class="cards_principal">
+            <a href="{{url_for('paradas')}}">
+                <img src="{{url_for('static', filename='img/parada.png')}}" alt="parada" class="parada-img-home">
+                <p>Paradas</p>
+            </a>
+            <a href="{{url_for('trajetos')}}">
+                <img src="{{url_for('static', filename='img/trajeto.png')}}" alt="trajeto" class="trajetoimg-home">
+                <p>Trajetos</p>
+            </a>
+        </div>
+        <div>
+            <a href="#" class="button-home">Selecione uma parada</a>
+        </div>
+        <div class="mapa">
+            <iframe
+                    width="85%"
+                    height="450"
+                    style="border:0"
+                    loading="lazy"
+                    allowfullscreen
+                    referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA59pXtdF-nLEO7RsVkupiEo_1ekWDVNmA&q=Space+Needle,Seattle+WA">
+            </iframe>
+        </div>
+        {% block sidebar%}
+            {% include 'sidebar.html'%}
+        {% endblock%}
+    </main>
+{% endblock%}  
+
