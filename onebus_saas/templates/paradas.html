@@ -1,0 +1,36 @@
+<!-- templates/paradas.html -->
+{% extends 'template.html' %}
+{% block conteudo %}
+    
+    <header class="header">
+        <div class="hamburger">
+            <i class="bi bi-list" id="hamburger"></i>
+        </div>
+    </header>
+    
+    <img class="imagem-parada" src="{{ url_for('static', filename='img/parada.png') }}" alt="logo da One bus" title="logo na One bus" class="logo-termos" height="50" width="50">
+    
+    <div class="div-login">
+        <h1 class="paradas">PARADAS</h1>
+    </div>
+    
+    <div class="parada-branco">
+        <div class="input-login" style="position: relative;">
+            <input type="text" name="text" placeholder="Pesquisar" class="input-cadastrar-nome" required>
+            
+            <!-- Novo div com iframe do Google Maps posicionado acima do botão -->
+            <div class="mapa">
+                <iframe width="300" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=-52.671473%2C-27.098903%2C-52.661473%2C-27.088903&layer=mapnik&marker=-27.093903%2C-52.666473"
+                style="border: 1px solid black">
+            </iframe>
+            </div>
+            
+            <a href="" class="selecionar_parada_button">SELECIONAR UMA PARADA</a>
+        </div>
+    </div>
+    
+    {% block sidebar %}
+        {% include 'sidebar.html' %}
+    {% endblock %}
+{% endblock %}

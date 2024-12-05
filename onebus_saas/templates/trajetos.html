@@ -1,0 +1,104 @@
+{% extends 'template.html' %}
+{% block conteudo %}
+<header class="header">
+    <div class="hamburger">
+        <i class="bi bi-list" id="hamburger"></i>
+    </div>
+</header>
+<main>
+    <div class="img-trajetos">
+        <img src="{{ url_for('static', filename='img/trajeto.png') }}" alt="trajeto">
+        <p class="img-trajetos-p">Trajetos</p>
+    </div>
+    <form class="search-form" action="search-results.html" method="get">
+        <input type="text" name="query" placeholder="Buscar..." class="search-input">
+    </form>
+    <div class="items">
+        <div class="item-image">
+            <img src="{{ url_for('static', filename='img/user.png') }}" alt="" class="img-trajeto">
+        </div>
+        <div class="item-info">
+            <div>
+                <p class="texto-localizar">Recomendado</p>
+                <p class="texto-universidade">UNIVERSIDADE FEDERAL</p>
+            </div>
+            <div class="textosss">
+                <button class="btn_localizar">Localizar</button>
+            </div>
+        </div>
+    </div>
+    <div class="items">
+        <div class="item-image">
+            <img src="{{ url_for('static', filename='img/user.png') }}" alt="" class="img-trajeto">
+        </div>
+        <div class="item-info">
+            <div>
+                <p class="texto-localizar">Recomendado</p>
+                <p class="texto-universidade">ZANROSSO / ALTA FLORESTA</p>
+            </div>
+            <div class="textosss">
+                <button class="btn_localizar">Localizar</button>
+            </div>
+        </div>
+    </div>
+    <div class="items">
+        <div class="item-image">
+            <img src="{{ url_for('static', filename='img/Movimentado.png') }}" alt="" class="img-trajeto">
+        </div>
+        <div class="item-info">
+            <div>
+                <p class="texto-localizar">Movimentado</p>
+                <p class="texto-universidade">UNIVERSIDADE FEDERAL</p>
+            </div>
+            <div class="textosss">
+                <button class="btn_localizar">Localizar</button>
+            </div>
+        </div>
+    </div>
+    <div class="items">
+        <div class="item-image">
+            <img src="{{ url_for('static', filename='img/Lotado (1).png') }}" alt="" class="img-trajeto">
+        </div>
+        <div class="item-info">
+            <div>
+                <p class="texto-localizar">Lotado</p>
+                <p class="texto-universidade">CACHENERÊ / NEREU RAMOS</p>
+            </div>
+            <div class="textosss">
+                <button class="btn_localizar">Localizar</button>
+            </div>
+        </div>
+    </div>
+    <div class="items">
+        <div class="item-image">
+            <img src="{{ url_for('static', filename='img/Lotado (1).png') }}" alt="" class="img-trajeto">
+        </div>
+        <div class="item-info">
+            <div>
+                <p class="texto-localizar">Lotado</p>
+                <p class="texto-universidade">CACHENERÊ / NEREU RAMOS</p>
+            </div>
+            <div class="textosss">
+                <button class="btn_localizar">Localizar</button>
+            </div>
+        </div>
+    </div>
+    <div class="items">
+        <div class="item-image">
+            <img src="{{ url_for('static', filename='img/Manutenção.png') }}" alt="" class="img-trajeto">
+        </div>
+        <div class="item-info">
+            <div>
+                <p class="texto-localizar">Em manutenção</p>
+                <p class="texto-universidade">ZANROSSO / ALTA FLORESTA</p>
+            </div>
+            <div class="textosss">
+                <button class="btn_localizar">Localizar</button>
+            </div>
+        </div>
+    </div>
+</main>
+{% block sidebar %}
+    {% include 'sidebar.html' %}
+{% endblock %}
+{% endblock %}
