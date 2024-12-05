@@ -1,0 +1,7 @@
+python3 -m http.server 8000
+
+pip freeze > requirements.txt
+pip install -r requirements.txt
+
+http://localhost:8000/client
+http://localhost:8000/admin

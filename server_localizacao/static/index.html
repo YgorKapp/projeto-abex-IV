@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cliente de Geolocalização</title>
+    <!-- Inclusão do Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #map {
+            height: 500px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        #nameForm {
+            margin-bottom: 20px;
+        }
+        #status {
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f0ad4e;
+            color: white;
+            display: inline-block;
+        }
+        #status.connected {
+            background-color: #5cb85c;
+        }
+        #status.error {
+            background-color: #d9534f;
+        }
+        #controls {
+            margin-top: 10px;
+        }
+        #disconnectBtn {
+            padding: 10px 20px;
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #disconnectBtn:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cliente de Geolocalização</h1>
+    <div id="nameForm">
+        <label for="username">Digite seu nome: </label>
+        <input type="text" id="username" placeholder="Nome" required>
+        <button id="sendName">Enviar</button>
+    </div>
+    <div id="controls" style="display: none;">
+        <button id="disconnectBtn">Desconectar</button>
+    </div>
+    <p id="status" class="error">Desconectado.</p>
+    <p id="mapLink"></p> 
+
+    <!-- Container para o mapa -->
+    <div id="map"></div>
+
+    <!-- Inclusão do Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        let userName = "";
+        const serverAddress = 'ws://127.0.0.1:5001'; 
+
+        let socket;
+        let trackingInterval = null;
+
+        // Inicializa o mapa centrado no Brasil
+        const map = L.map('map').setView([-14.2350, -51.9253], 4);
+
+        // Adiciona os tiles do OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Objeto para armazenar marcadores de todos os usuários
+        const markers = {};
+
+        // Objetos para armazenar polylines de todos os usuários
+        const polylines = {};
+
+        // Função para atualizar o status de conexão
+        function updateStatus(message, statusClass) {
+            const statusElement = document.getElementById('status');
+            statusElement.innerText = message;
+            statusElement.className = '';
+            if (statusClass) {
+                statusElement.classList.add(statusClass);
+            }
+        }
+
+        // Função para enviar o nome do usuário ao servidor
+        function sendName() {
+            const nameInput = document.getElementById('username');
+            const name = nameInput.value.trim();
+
+            if (name === "") {
+                alert("Por favor, insira um nome válido.");
+                return;
+            }
+
+            userName = name;
+            document.getElementById('nameForm').style.display = 'none';
+            document.getElementById('controls').style.display = 'block';
+            updateStatus(`Conectado como ${userName}.`, 'connected');
+
+            // Inicializa o WebSocket após enviar o nome
+            initWebSocket();
+        }
+
+        document.getElementById('sendName').addEventListener('click', sendName);
+
+        // Função para inicializar a conexão WebSocket
+        function initWebSocket() {
+            socket = new WebSocket(serverAddress);
+
+            socket.onopen = function() {
+                updateStatus('Conectado ao servidor.', 'connected');
+                console.log('Conexão WebSocket estabelecida.');
+
+                // Envia a identificação do cliente
+                if (userName) {
+                    socket.send(JSON.stringify({ name: userName }));
+                }
+
+                // Inicia o rastreamento de localização
+                startTracking();
+            };
+
+            socket.onerror = function(error) {
+                updateStatus('Erro na conexão com o servidor.', 'error');
+                console.error('WebSocket Error: ', error);
+            };
+
+            socket.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+
+                // Verifica se a mensagem contém um erro
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
+
+                // Atualiza os marcadores e polylines no mapa
+                updateMap(data);
+            };
+
+            socket.onclose = function() {
+                updateStatus('Conexão encerrada.', 'error');
+                console.log('Conexão WebSocket encerrada.');
+                document.getElementById('controls').style.display = 'none';
+                document.getElementById('nameForm').style.display = 'block';
+                // Parar o rastreamento de geolocalização
+                if (trackingInterval) {
+                    clearInterval(trackingInterval);
+                    trackingInterval = null;
+                }
+            };
+        }
+
+        // Função para enviar a localização atual ao servidor
+        function sendLocation(position) {
+            if (!userName) {
+                console.warn("Nome do usuário não definido.");
+                return;
+            }
+
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            const locationData = JSON.stringify({ latitude, longitude });
+            socket.send(locationData);
+            console.log('Localização enviada:', locationData);
+
+            // Atualiza o link do Google Maps
+            const googleMapsLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
+            const linkElement = document.getElementById('mapLink');
+            linkElement.innerHTML = `Veja no Google Maps: <a href="${googleMapsLink}" target="_blank">${googleMapsLink}</a>`;
+        }
+
+        // Função para lidar com erros de geolocalização
+        function handleError(error) {
+            updateStatus('Erro ao obter localização.', 'error');
+            console.error('Geolocation Error: ', error);
+        }
+
+        // Função para atualizar o mapa com as localizações recebidas
+        function updateMap(data) {
+            const incomingNames = new Set(Object.keys(data));
+
+            // Remover marcadores e polylines que não estão mais presentes
+            for (const name in markers) {
+                if (!incomingNames.has(name)) {
+                    map.removeLayer(markers[name]);
+                    delete markers[name];
+                }
+            }
+
+            for (const name in polylines) {
+                if (!incomingNames.has(name)) {
+                    map.removeLayer(polylines[name]);
+                    delete polylines[name];
+                }
+            }
+
+            // Adicionar ou atualizar marcadores e polylines
+            for (const [name, info] of Object.entries(data)) {
+                // Ignora o marcador do admin
+                if (name === 'admin') continue;
+
+                const { latitude, longitude, history } = info;
+
+                // Atualiza ou cria o marcador
+                if (markers[name]) {
+                    markers[name].setLatLng([latitude, longitude]);
+                } else {
+                    const marker = L.marker([latitude, longitude]).addTo(map)
+                        .bindPopup(`<b>${name}</b>`);
+                    markers[name] = marker;
+                }
+
+                // Atualiza ou cria a polyline para o histórico
+                if (polylines[name]) {
+                    polylines[name].setLatLngs(history.map(loc => [loc.latitude, loc.longitude]));
+                } else {
+                    const polyline = L.polyline(history.map(loc => [loc.latitude, loc.longitude]), { color: getRandomColor() }).addTo(map);
+                    polylines[name] = polyline;
+                }
+
+                // Centraliza o mapa na localização do usuário
+                if (name === userName) {
+                    map.setView([latitude, longitude], 15);
+                }
+            }
+        }
+
+        // Função para gerar uma cor aleatória para as polylines
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // Opções de geolocalização
+        const options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+        };
+
+        // Função para obter a localização periodicamente
+        function startTracking() {
+            // Envia a localização imediatamente
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(sendLocation, handleError, options);
+            } else {
+                updateStatus('Geolocalização não é suportada por este navegador.', 'error');
+            }
+
+            // Envia a localização a cada 5 segundos
+            trackingInterval = setInterval(() => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(sendLocation, handleError, options);
+                } else {
+                    updateStatus('Geolocalização não é suportada por este navegador.', 'error');
+                }
+            }, 5000); // A cada 5 segundos
+        }
+
+        // Função para desconectar o WebSocket
+        function disconnect() {
+            if (socket && socket.readyState === WebSocket.OPEN) {
+                socket.close();
+            }
+            // Atualiza o status
+            updateStatus('Desconectado.', 'error');
+            // Remove o link do Google Maps
+            document.getElementById('mapLink').innerHTML = '';
+            // Remove o marcador do cliente no mapa
+            if (markers[userName]) {
+                map.removeLayer(markers[userName]);
+                delete markers[userName];
+            }
+        }
+
+        // Adiciona o listener para o botão de desconectar
+        document.getElementById('disconnectBtn').addEventListener('click', disconnect);
+    </script>
+</body>
+</html>
