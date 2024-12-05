@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Visualização de Mapas - OneBus</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-sA+e2qIGj3Eup1ELjPh27Nwr6pG+3sWhxMjg1x8a9gI="
+          crossorigin=""/>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <h1>Visualização de Mapas - OneBus</h1>
+    <div id="map"></div>
+
+    <!-- Formulário para selecionar o mapa -->
+    <div id="map-selector">
+        <label for="mapa">Selecionar Mapa:</label>
+        <select id="mapa">
+            <option value="">--Selecione um Mapa--</option>
+        </select>
+    </div>
+
+    <!-- Formulário para criar um novo mapa -->
+    <div id="create-map-form">
+        <h2>Criar Novo Mapa</h2>
+        <form id="form-mapa">
+            <label for="nome_mapa">Nome do Mapa:</label>
+            <input type="text" id="nome_mapa" name="nome_mapa" required><br>
+
+            <label for="descricao_mapa">Descrição:</label>
+            <input type="text" id="descricao_mapa" name="descricao_mapa"><br>
+
+            <button type="submit">Criar Mapa</button>
+        </form>
+    </div>
+
+    <!-- Formulário para adicionar um novo ponto -->
+    <div id="add-point-form">
+        <h2>Adicionar Novo Ponto</h2>
+        <form id="form-ponto">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required><br>
+
+            <label for="latitude">Latitude:</label>
+            <input type="number" step="any" id="latitude" name="latitude" required><br>
+
+            <label for="longitude">Longitude:</label>
+            <input type="number" step="any" id="longitude" name="longitude" required><br>
+
+            <label for="descricao">Descrição:</label>
+            <input type="text" id="descricao" name="descricao"><br>
+
+            <button type="submit">Adicionar Ponto</button>
+        </form>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-o9N1jN1j8P94h3VYjJjBrqBl2QJibB56LYJZgF1YkCI="
+            crossorigin=""></script>
+    <script src="/static/js/scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{% extends 'template.html' %}
+{% block conteudo %}
+    <header class="header">
+        <div class="hamburger">
+            <i class="bi bi-list" id="hamburger"></i>
+        </div>
+    </header>
+    <main class="main">
+        <div class="cards_principal">
+            <a href="{{ url_for('paradas') }}">
+                <img src="{{ url_for('static', filename='img/parada.png') }}" alt="parada" class="parada-img-home">
+                <p>Paradas</p>
+            </a>
+            <a href="{{ url_for('trajetos') }}">
+                <img src="{{ url_for('static', filename='img/trajeto.png') }}" alt="trajeto" class="trajetoimg-home">
+                <p>Trajetos</p>
+            </a>
+        </div>
+        <div>
+            <a href="#" class="button-home">Selecione uma parada</a>
+        </div>
+        <div class="mapa">
+            <iframe width="300" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=-52.671473%2C-27.098903%2C-52.661473%2C-27.088903&layer=mapnik&marker=-27.093903%2C-52.666473"
+                style="border: 1px solid black">
+            </iframe>
+        </div>
+        {% block sidebar %}
+            {% include 'sidebar.html' %}
+        {% endblock %}
+    </main>
+{% endblock %}

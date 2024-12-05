@@ -1,0 +1,5 @@
+ENDPOINT_BANCO=onebus.cx8kmic8cryz.us-east-2.rds.amazonaws.com
+USERNAME_BANCO=admin
+PASSWORD_BANCO=onebus123
+DB_NAME_BANCO=onebus
+SECRET_KEY=onebus
